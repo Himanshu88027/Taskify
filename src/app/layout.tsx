@@ -1,6 +1,21 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import {Fredericka_the_Great, Happy_Monkey} from "next/font/google"
+import AuthProvider from "./context/AuthProvider";
+import {Toaster} from 'sonner'
+
+const fredericka = Fredericka_the_Great({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-fredericka",
+});
+
+const monkey = Happy_Monkey({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-monkey",
+});
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -25,11 +40,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <AuthProvider>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${fredericka.variable} ${monkey.variable} antialiased`}
       >
+        <Toaster theme="dark" position="bottom-right" />
         {children}
       </body>
+      </AuthProvider>
     </html>
   );
 }
